@@ -1,0 +1,80 @@
+<div class="flex flex-col items-center min-h-screen bg-gray-300 py-10">
+    <!-- Botón arriba izquierda -->
+    <div class="w-full max-w-4xl mb-4">
+       <%= link_to "Crear usuario", new_user_path, class: "inline-block text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2" %>
+    </div>
+
+    <% if flash[:notice] || flash[:alert] %>
+        <% type  = flash[:notice] ? 'notice' : 'alert' %>
+        <% base  = "w-full max-w-4xl mb-4 p-4 rounded-lg border" %>
+
+        <% if type == 'notice' %>
+            <% classes = "#{base} bg-green-100 border-green-300 text-green-700" %>
+        <% else %>
+            <% classes = "#{base} bg-red-100 border-red-300 text-red-700" %>
+        <% end %>
+
+        <div class="<%= classes %>">
+            <%= flash[type.to_sym] %>
+        </div>
+    <% end %>
+
+
+    <!-- Tabla -->
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-full max-w-4xl bg-white">
+        <table class="w-full text-sm text-left text-gray-700">
+            <thead class="text-xs uppercase bg-gray-50 text-gray-700">
+                <tr>
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Nombre</th>
+                    <th class="px-6 py-3">Apellido</th>
+                    <th class="px-6 py-3">Email</th>
+                    <th class="px-6 py-3">Edad</th>
+                    <th class="px-6 py-3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user|%>
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4"><%= user.id %></td>
+                        <td class="px-6 py-4"><%= user.name%></td>
+                        <td class="px-6 py-4"><%= user.lastname%></td>
+                        <td class="px-6 py-4"><%= user.email%></td>
+                        <td class="px-6 py-4"><%= user.age%></td>
+                        <td class="px-6 py-4 flex gap-4">
+                            <!-- Botón EDITAR -->
+                            <div data-tooltip-target="tooltip-edit-<%= user.id %>" data-tooltip-placement="top">
+                                <%= link_to edit_user_path(user),
+                                class: "text-blue-600 hover:text-blue-800 text-lg" do %>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <% end %>
+                            </div>
+
+                            <div id="tooltip-edit-<%= user.id %>" role="tooltip" class="absolute invisible z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
+                                Editar
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+
+                            <!-- Botón ELIMINAR -->
+                            <div data-tooltip-target="tooltip-delete-<%= user.id %>" data-tooltip-placement="top">
+                                <%= link_to user_path(user),
+                                    data: {
+                                    turbo_method: :delete,
+                                    turbo_confirm: "¿Seguro que deseas eliminar este usuario?"
+                                    },
+                                    class: "text-red-600 hover:text-red-800 text-lg" do %>
+                                <i class="fa-solid fa-trash"></i>
+                                <% end %>
+                            </div>
+
+                            <div id="tooltip-delete-<%= user.id %>" role="tooltip" class="absolute invisible z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
+                                Eliminar
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

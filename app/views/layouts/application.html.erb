@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Users Crud Flowbite" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Users Crud Flowbite">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <!-- PWA manifest opcional -->
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <!-- ======================= -->
+    <!--   Tailwind + Flowbite   -->
+    <!-- ======================= -->
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Flowbite CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <%# Tus estilos locales %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+    <%# Importmaps %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+
+    <%= yield %>
+
+    <!-- Flowbite JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+
+    <!-- Si usas Turbo, esto reinicializa Flowbite -->
+    <script>
+      document.addEventListener("turbo:load", () => {
+        if (window.initFlowbite) {
+          window.initFlowbite();
+        }
+      });
+    </script>
+
+  </body>
+</html>
