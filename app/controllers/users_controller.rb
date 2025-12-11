@@ -4,6 +4,14 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where(deleted: false)
+    respond_to do |format|
+      format.html
+      format.xlsx do
+        timestamp = Time.current.strftime("%d-%m-%Y_%H-%M-%S")
+        response.headers['Content-Disposition'] =
+          "attachment; filename=usuarios_#{timestamp}.xlsx"
+      end
+    end
   end
 
   def new

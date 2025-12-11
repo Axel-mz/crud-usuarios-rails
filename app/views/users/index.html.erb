@@ -1,7 +1,15 @@
 <div class="flex flex-col items-center min-h-screen bg-gray-300 py-10">
-    <!-- Botón arriba izquierda -->
-    <div class="w-full max-w-4xl mb-4">
-       <%= link_to "Crear usuario", new_user_path, class: "inline-block text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2" %>
+    <!-- Botones arriba: izquierda y derecha -->
+    <div class="w-full max-w-4xl mb-4 flex justify-between">
+        <%= link_to "Crear usuario", new_user_path,
+            class: "inline-block text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-4 py-2" %>
+
+        <%= link_to users_path(format: :xlsx),
+            class: "inline-block text-white bg-gray-600 hover:bg-gray-700 font-medium rounded-lg text-sm px-4 py-2",
+            escape: false do %>
+            Exportar <i class="fa-solid fa-download"></i>
+        <% end %>
+
     </div>
 
     <% if flash[:notice] || flash[:alert] %>

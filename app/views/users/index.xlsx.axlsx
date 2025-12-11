@@ -1,0 +1,17 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Usuarios") do |sheet|
+  # Cabecera
+  sheet.add_row ["ID", "Nombre", "Apellido", "Email", "Edad"]
+
+  # Filas
+  @users.each do |u|
+    sheet.add_row [
+      u.id,
+      u.name,
+      u.lastname,
+      u.email,
+      u.age
+    ]
+  end
+end
